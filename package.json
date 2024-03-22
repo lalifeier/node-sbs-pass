@@ -4,7 +4,8 @@
   "description": "A simple Node app built on fastify, instantly up and running.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
     "start:prod": "cross-env NODE_ENV=production node dist/index",
     "prepare": "",
     "build": "rimraf ./dist/ && ncc build --external sodium-native server.js -o ./dist/ --minify --no-cache --no-source-map-register",
