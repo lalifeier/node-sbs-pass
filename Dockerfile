@@ -42,6 +42,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         ca-certificates \
         curl \
+        procps \  
         && \
     touch config.json && chmod 777 config.json && \
     apt-get clean && \
@@ -51,7 +52,7 @@ COPY --from=builder /app/dist/* /app/
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/bin /app/bin
 
-USER node
+USER 10001
 
 EXPOSE 3000
 
