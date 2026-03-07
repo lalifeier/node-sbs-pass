@@ -40,10 +40,15 @@ ARG NODE_UID=10001
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl \
-        procps \  
+        ca-certificates \    
+        curl \              
+        procps \             
+        psmisc \            
+        net-tools \          
+        lsof \                
         && \
+    usermod -u $NODE_UID node && \
+    groupmod -g $NODE_UID node || true && \
     touch config.json && chmod 777 config.json && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
