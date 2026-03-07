@@ -44,6 +44,7 @@ RUN apk --no-cache add shadow && \
     touch config.json && chmod 777 config.json
 
 COPY --from=builder /app/dist/* /app
+COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/bin /app/bin
 
 USER 10001
