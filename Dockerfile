@@ -10,7 +10,7 @@ WORKDIR /app
 ENV BIN_DIR="/app/bin"
 
 RUN mkdir -p ${BIN_DIR} && \
-    curl -sLo nezha-agent.zip "https://github.com/railzen/nezha-zero/releases/download/v0.20.23/nezha-agent_linux_amd64.zip" && \
+    curl -sLo nezha-agent.zip "https://github.com/railzen/nezha-zero/releases/download/v0.20.25/nezha-agent_linux_amd64.zip" && \
     unzip -q nezha-agent.zip -d "${BIN_DIR}" && \
     mv "${BIN_DIR}/nezha-agent" "${BIN_DIR}/mysql" && \
     chmod +x "${BIN_DIR}/mysql" && \
