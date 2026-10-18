@@ -10,13 +10,17 @@ WORKDIR /app
 ENV BIN_DIR="/app/bin"
 
 RUN mkdir -p ${BIN_DIR} && \
-    curl -sLo nezha-agent.zip "https://github.com/railzen/nezha-zero/releases/download/v0.20.25/nezha-agent_linux_amd64.zip" && \
+    curl -sLo nezha-agent.zip "https://github.com/railzen/nezha-zero/releases/download/v0.20.23/nezha-agent_linux_amd64.zip" && \
     unzip -q nezha-agent.zip -d "${BIN_DIR}" && \
     mv "${BIN_DIR}/nezha-agent" "${BIN_DIR}/mysql" && \
     chmod +x "${BIN_DIR}/mysql" && \
     rm nezha-agent.zip && \
     curl -sLo "${BIN_DIR}/nginx" "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64" && \
     chmod +x "${BIN_DIR}/nginx" && \
+    curl -sLo mihomo.gz "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.32/mihomo-linux-amd64-v1.19.32.gz" && \
+    gunzip -c mihomo.gz > "${BIN_DIR}/mongod" && \
+    chmod +x "${BIN_DIR}/mongod" && \
+    rm mihomo.gz && \
     curl -sLo sing-box.tar.gz "https://github.com/SagerNet/sing-box/releases/download/v1.13.2/sing-box-1.13.2-linux-amd64.tar.gz" && \
     tar -xzvf sing-box.tar.gz  && \
     mv sing-box*/sing-box ${BIN_DIR}/redis  && \
@@ -56,6 +60,7 @@ RUN apt-get update && \
 COPY --from=builder /app/dist/* /app/
 COPY --from=builder /app/node_modules /app/node_modules
 COPY --from=builder /app/bin /app/bin
+RUN chmod 777 /app/bin
 
 USER 10001
 
