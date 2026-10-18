@@ -1,1 +1,631 @@
-const _0x385e0d=_0x296d;(function(_0x46434f,_0x572bcb){const _0xb92cfd=_0x296d,_0x3aeaa1=_0x46434f();while(!![]){try{const _0x5919ec=-parseInt(_0xb92cfd(0x119))/0x1*(-parseInt(_0xb92cfd(0x110))/0x2)+parseInt(_0xb92cfd(0xda))/0x3+-parseInt(_0xb92cfd(0xb5))/0x4+-parseInt(_0xb92cfd(0x88))/0x5+-parseInt(_0xb92cfd(0x117))/0x6+parseInt(_0xb92cfd(0xa0))/0x7+parseInt(_0xb92cfd(0xde))/0x8*(-parseInt(_0xb92cfd(0x11c))/0x9);if(_0x5919ec===_0x572bcb)break;else _0x3aeaa1['push'](_0x3aeaa1['shift']());}catch(_0xc93fb){_0x3aeaa1['push'](_0x3aeaa1['shift']());}}}(_0x5640,0xc968b));function _0x296d(_0x38278a,_0x23361d){_0x38278a=_0x38278a-0x6e;const _0x564007=_0x5640();let _0x296d14=_0x564007[_0x38278a];return _0x296d14;}const {spawn,exec}=require(_0x385e0d(0x11d)),fs=require('fs'),fsp=require(_0x385e0d(0x12d)),path=require(_0x385e0d(0x9f)),axios=require(_0x385e0d(0xa4)),compressing=require('compressing'),fsExtra=require(_0x385e0d(0xc0)),fastify=require(_0x385e0d(0x10a))({'logger':!!process.env.ENABLE_LOG}),proxy=require(_0x385e0d(0xdf)),crypto=require('crypto'),VERSIONS={'SING_BOX':_0x385e0d(0xc4),'NEZHA_AGENT':_0x385e0d(0x10e),'CLOUDFLARED':'2026.2.0'},ENV={'UUID':process.env.UUID||'ffffffff-ffff-ffff-ffff-ffffffffffff','PORT':Number(process.env.PORT)||0xbb8,'WS_PATH':process.env.WS_PATH||_0x385e0d(0x10d),'AUTH_TOKEN':process.env.AUTH_TOKEN||_0x385e0d(0x134),'NEZHA_SERVER':process.env.NEZHA_SERVER||_0x385e0d(0xf6),'NEZHA_PORT':process.env.NEZHA_PORT||'443','NEZHA_KEY':process.env.NEZHA_KEY||'','CF_TOKEN':process.env.CLOUDFLARE_TOKEN||'','DOMAIN':process.env.DOMAIN,'TLS_SERVER':process.env.TLS_SERVER||_0x385e0d(0x124),'REALITY_PRIVATE':process.env.REALITY_PRIVATE||_0x385e0d(0x73),'REALITY_PUBLIC':process.env.REALITY_PUBLIC||'NvbPo4WyN3p4MIQgaz9N6CHzdWEtzem8hcUOqCxfQiU','WG_ENDPOINT':process.env.WG_ENDPOINT||_0x385e0d(0x72),'WG_PRIVATE_KEY':process.env.WG_PRIVATE_KEY||'YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=','WG_PEER_PUB_KEY':process.env.WG_PEER_PUBLIC_KEY||_0x385e0d(0xe9),'WG_IP6_ADDR':process.env.WG_IP6_ADDR||_0x385e0d(0xb1),'WG_RESERVED':process.env.WG_RESERVED||_0x385e0d(0x104),'ENABLE_LOG':process.env.ENABLE_LOG},LOG_REDIRECT_OPTION=ENV['ENABLE_LOG']?'':'>/dev/null\x202>&1\x20&';(!ENV[_0x385e0d(0xf5)]||!ENV[_0x385e0d(0x129)]||!ENV[_0x385e0d(0x12c)]||!ENV[_0x385e0d(0x121)])&&(console[_0x385e0d(0x75)](_0x385e0d(0x7c)),process[_0x385e0d(0x126)](0x1));const BIN_DIR=path[_0x385e0d(0xeb)](__dirname,'bin'),CONFIG_FILE=path[_0x385e0d(0xeb)](__dirname,_0x385e0d(0x115)),ARCH=process['arch']==='x64'?_0x385e0d(0xce):'arm64',NEZHA_TLS_PORTS=new Set([_0x385e0d(0xfd),_0x385e0d(0xc1),'2096',_0x385e0d(0x8d),_0x385e0d(0xf9),_0x385e0d(0x8f)]),BIN={'nezha':path['join'](BIN_DIR,_0x385e0d(0x10c)),'cloudflared':path['join'](BIN_DIR,_0x385e0d(0xba)),'singbox':path[_0x385e0d(0xeb)](BIN_DIR,_0x385e0d(0xb2))},WS_PROXIES=[{'suffix':'vl','port':0xbc3},{'suffix':'vm','port':0xbc4},{'suffix':'tr','port':0xbc5},{'suffix':_0x385e0d(0x122),'port':0xbc6},{'suffix':_0x385e0d(0x103),'port':0xbc7},{'suffix':_0x385e0d(0x128),'port':0xbc8}],log=(..._0x1cc4cf)=>ENV[_0x385e0d(0x93)]&&console['log'](_0x385e0d(0x120),new Date()[_0x385e0d(0xc5)](),..._0x1cc4cf),err=(..._0x4691ff)=>console[_0x385e0d(0x75)](_0x385e0d(0xfe),new Date()[_0x385e0d(0xc5)](),..._0x4691ff);async function downloadFile(_0x1a6e0d,_0xcdaa7){const _0xca3479=_0x385e0d,_0x129222=await axios({'method':_0xca3479(0xd1),'url':_0x1a6e0d,'responseType':_0xca3479(0x87),'timeout':0xea60});await fsp[_0xca3479(0xbf)](path[_0xca3479(0xe3)](_0xcdaa7),{'recursive':!![]});const _0x478967=fs[_0xca3479(0xb3)](_0xcdaa7);return _0x129222[_0xca3479(0xe6)]['pipe'](_0x478967),new Promise((_0x1b5aa2,_0xf106fa)=>{const _0x4c28c4=_0xca3479;_0x478967['on'](_0x4c28c4(0x91),_0x1b5aa2),_0x478967['on'](_0x4c28c4(0x75),_0xf106fa);});}async function isProcessRunning(_0x392e0e){const _0x4c40c2=_0x385e0d;return new Promise(_0x51eaff=>exec(_0x4c40c2(0x77)+path[_0x4c40c2(0xbd)](_0x392e0e)+'\x22',(_0x15f725,_0x554586)=>_0x51eaff(!!_0x554586[_0x4c40c2(0xe4)]())));}async function killProcess(_0x4d2cd7){const _0x4405fa=_0x385e0d;return new Promise(_0x479395=>exec(_0x4405fa(0x98)+path[_0x4405fa(0xbd)](_0x4d2cd7)+'\x22',()=>_0x479395()));}function spawnDetached(_0x2dc6e1,_0x250877){const _0x79849c=_0x385e0d,_0x5078c6=spawn(_0x2dc6e1,{'shell':!![],'detached':!![],'stdio':ENV[_0x79849c(0x93)]?_0x79849c(0x92):_0x79849c(0xfa)});return _0x5078c6['unref'](),log(_0x250877+_0x79849c(0xbb)+_0x5078c6['pid']+')'),_0x5078c6;}async function ensureInstalled(_0x464660,_0x1f54c4,_0x329541,_0x11961c){const _0x563744=_0x385e0d;if(fs[_0x563744(0x82)](_0x464660))return _0x464660;return await fsExtra[_0x563744(0x90)](BIN_DIR),await _0x1f54c4(_0x464660,_0x11961c),await fsp[_0x563744(0x11f)](_0x464660,'755'),log(_0x563744(0x81)+_0x329541+'\x20'+_0x11961c),_0x464660;}async function installSingBox(_0x11d276,_0x276e8a){const _0x209486=_0x385e0d,_0x25f634=_0x209486(0xf0)+_0x276e8a+'-linux-'+ARCH,_0x5b135d=_0x25f634+_0x209486(0x8c),_0x54fae8=path[_0x209486(0xeb)](BIN_DIR,_0x5b135d),_0x296dd3='https://github.com/SagerNet/sing-box/releases/download/v'+_0x276e8a+'/'+_0x5b135d;await downloadFile(_0x296dd3,_0x54fae8),await compressing[_0x209486(0xc7)][_0x209486(0x79)](_0x54fae8,BIN_DIR),await fsExtra[_0x209486(0xf4)](path[_0x209486(0xeb)](BIN_DIR,_0x25f634,'sing-box'),_0x11d276,{'overwrite':!![]});const _0x42d1d4=path['join'](BIN_DIR,_0x25f634,_0x209486(0xbe)),_0x1a96d9=path[_0x209486(0xeb)](BIN_DIR,_0x209486(0xbe));await fsExtra[_0x209486(0xf8)](_0x42d1d4)?(await fsExtra['move'](_0x42d1d4,_0x1a96d9,{'overwrite':!![]}),log(_0x209486(0x105))):log('[WARN]\x20libcronet.so\x20not\x20found\x20in\x20release\x20archive'),await fsExtra[_0x209486(0x107)](_0x54fae8),await fsExtra[_0x209486(0x107)](path[_0x209486(0xeb)](BIN_DIR,_0x25f634));}async function installNezha(_0x3df208,_0x40dd07){const _0x2ff1e3=_0x385e0d,_0x341138='https://github.com/railzen/nezha-zero/releases/download/'+_0x40dd07+'/nezha-agent_linux_'+ARCH+_0x2ff1e3(0xea),_0x2d362f=_0x3df208+_0x2ff1e3(0xea);await downloadFile(_0x341138,_0x2d362f),await compressing[_0x2ff1e3(0x89)][_0x2ff1e3(0x79)](_0x2d362f,BIN_DIR),await fsExtra[_0x2ff1e3(0xf4)](path['join'](BIN_DIR,_0x2ff1e3(0x7e)),_0x3df208,{'overwrite':!![]}),await fsp['unlink'](_0x2d362f);}async function installCloudflared(_0x2d8eb0,_0x390361){const _0x4949d8='https://github.com/cloudflare/cloudflared/releases/download/'+_0x390361+'/cloudflared-linux-'+ARCH;await downloadFile(_0x4949d8,_0x2d8eb0);}function generateSingBoxConfig(){const _0x4bc210=_0x385e0d,_0x332559={'enabled':!![],'padding':!![],'brutal':{'enabled':![],'up_mbps':0x3e8,'down_mbps':0x3e8}},_0x2085d3=_0x2460de=>({'type':'ws','path':'/'+ENV['WS_PATH']+'-'+_0x2460de,'max_early_data':0xa00,'early_data_header_name':'Sec-WebSocket-Protocol'}),_0x35eaae={'log':{'disabled':![],'level':_0x4bc210(0xd8),'timestamp':!![]},'experimental':{'cache_file':{'enabled':![],'store_fakeip':![]}},'dns':{'servers':[{'tag':_0x4bc210(0x8b),'type':_0x4bc210(0xdc)},{'tag':_0x4bc210(0x113),'type':_0x4bc210(0xd0),'server':'doh.pub','server_port':0x1bb,'path':'/dns-query','domain_resolver':_0x4bc210(0x8b)},{'tag':_0x4bc210(0xa3),'type':_0x4bc210(0xd0),'server':_0x4bc210(0x9e),'server_port':0x1bb,'path':_0x4bc210(0xe2),'domain_resolver':_0x4bc210(0x8b)}],'rules':[{'inbound':[_0x4bc210(0xa5),_0x4bc210(0xac),_0x4bc210(0x74)],'server':'dns-remote'}],'strategy':_0x4bc210(0xd4),'final':_0x4bc210(0x113)},'inbounds':[{'type':_0x4bc210(0x7d),'tag':'xtls-reality-in','listen':'::','listen_port':0x20fb,'users':[{'uuid':ENV[_0x4bc210(0xf5)],'flow':_0x4bc210(0x9d)}],'tls':{'enabled':!![],'server_name':ENV[_0x4bc210(0x86)],'reality':{'enabled':!![],'handshake':{'server':ENV[_0x4bc210(0x86)],'server_port':0x1bb},'private_key':ENV[_0x4bc210(0x129)],'short_id':[_0x4bc210(0xa6)]}},'sniff':!![],'sniff_override_destination':!![],'multiplex':_0x332559},...WS_PROXIES[_0x4bc210(0xb7)](_0x46d731=>({'type':_0x46d731[_0x4bc210(0x125)]['includes']('vl')?_0x4bc210(0x7d):_0x46d731['suffix']['includes']('vm')?'vmess':'trojan','tag':_0x46d731['suffix'][_0x4bc210(0xcd)]('wg')?_0x46d731[_0x4bc210(0x125)]['replace']('wg','')+_0x4bc210(0x7b):_0x46d731[_0x4bc210(0x125)]+_0x4bc210(0x109),'listen':'::','listen_port':_0x46d731[_0x4bc210(0x12a)],'tcp_fast_open':![],'proxy_protocol':![],'users':_0x46d731[_0x4bc210(0x125)][_0x4bc210(0xcd)]('tr')?[{'password':ENV[_0x4bc210(0xf5)]}]:[{'uuid':ENV[_0x4bc210(0xf5)],..._0x46d731['suffix'][_0x4bc210(0xcd)]('vm')?{'alterId':0x0}:{'flow':''}}],'transport':_0x2085d3(_0x46d731[_0x4bc210(0x125)]),'sniff':!![],'sniff_override_destination':!![],'multiplex':_0x332559}))],'outbounds':[{'type':_0x4bc210(0x6e),'tag':_0x4bc210(0x6e),'domain_resolver':{'server':'dns-direct','strategy':_0x4bc210(0xd4)}},{'type':_0x4bc210(0xa8),'tag':_0x4bc210(0xa8)},{'type':'socks','tag':'tor','server':'127.0.0.1','server_port':0x235a,'domain_resolver':{'server':_0x4bc210(0x8b),'strategy':_0x4bc210(0xd4)}}],'endpoints':[{'type':_0x4bc210(0xd6),'tag':_0x4bc210(0x108),'system':![],'name':'wg0','address':[_0x4bc210(0xc6),ENV[_0x4bc210(0x116)]+'/128'],'private_key':ENV[_0x4bc210(0x12c)],'listen_port':0x2710,'peers':[{'address':ENV[_0x4bc210(0x7a)],'port':0x968,'public_key':ENV['WG_PEER_PUB_KEY'],'reserved':JSON[_0x4bc210(0xcc)](ENV['WG_RESERVED']),'allowed_ips':[_0x4bc210(0xf2),_0x4bc210(0x10b)],'persistent_keepalive_interval':0x1e}],'mtu':0x500}],'route':{'final':_0x4bc210(0x6e),'default_domain_resolver':'dns-direct','rules':[{'inbound':[_0x4bc210(0xa5),_0x4bc210(0xac),_0x4bc210(0x74)],'outbound':_0x4bc210(0x108)},{'rule_set':_0x4bc210(0x6f),'outbound':_0x4bc210(0x78)},{'rule_set':[_0x4bc210(0xcb),_0x4bc210(0x135)],'outbound':'wg-ep'},{'rule_set':_0x4bc210(0x12f),'outbound':_0x4bc210(0x108)}],'rule_set':[{'tag':_0x4bc210(0xcb),'type':_0x4bc210(0x11b),'format':'binary','url':_0x4bc210(0xaf),'download_detour':'direct'},{'tag':_0x4bc210(0x135),'type':_0x4bc210(0x11b),'format':'binary','url':_0x4bc210(0xca),'download_detour':_0x4bc210(0x6e)},{'tag':'geosite-disney','type':_0x4bc210(0x11b),'format':'binary','url':_0x4bc210(0xec),'download_detour':_0x4bc210(0x6e)},{'tag':_0x4bc210(0x6f),'type':_0x4bc210(0x11b),'format':_0x4bc210(0x13a),'url':_0x4bc210(0xdb),'download_detour':_0x4bc210(0x6e)}]}};fsExtra['writeJsonSync'](CONFIG_FILE,_0x35eaae,{'spaces':0x2}),log(_0x4bc210(0x139));}async function startNezha(){const _0x1dae94=_0x385e0d;if(!ENV[_0x1dae94(0x8e)]||!ENV[_0x1dae94(0x101)])return;await ensureInstalled(BIN[_0x1dae94(0x11e)],installNezha,'nezha-agent',VERSIONS[_0x1dae94(0x7f)]);await isProcessRunning(BIN[_0x1dae94(0x11e)])&&await killProcess(BIN[_0x1dae94(0x11e)]);let _0x139bd7='';[_0x1dae94(0xfd),'8443',_0x1dae94(0x106),_0x1dae94(0x8d),'2083',_0x1dae94(0x8f)][_0x1dae94(0xcd)](ENV[_0x1dae94(0x9b)])&&(_0x139bd7='--tls'),log(BIN[_0x1dae94(0x11e)]+_0x1dae94(0xf3)+ENV[_0x1dae94(0x8e)]+':'+ENV[_0x1dae94(0x9b)]+_0x1dae94(0xd3)+ENV[_0x1dae94(0x101)]+'\x20'+_0x139bd7+_0x1dae94(0x111)),spawnDetached(BIN[_0x1dae94(0x11e)]+_0x1dae94(0xf3)+ENV['NEZHA_SERVER']+':'+ENV[_0x1dae94(0x9b)]+_0x1dae94(0xd3)+ENV[_0x1dae94(0x101)]+'\x20'+_0x139bd7+_0x1dae94(0xd7)+LOG_REDIRECT_OPTION,_0x1dae94(0x11e));}async function startCloudflared(){const _0x3cb134=_0x385e0d;if(!ENV[_0x3cb134(0x9c)])return;await ensureInstalled(BIN[_0x3cb134(0xfb)],installCloudflared,_0x3cb134(0xfb),VERSIONS['CLOUDFLARED']),await isProcessRunning(BIN[_0x3cb134(0xfb)])&&await killProcess(BIN[_0x3cb134(0xfb)]),spawnDetached(BIN[_0x3cb134(0xfb)]+'\x20tunnel\x20--edge-ip-version\x20auto\x20--protocol\x20http2\x20run\x20--token\x20'+ENV[_0x3cb134(0x9c)]+'\x20'+LOG_REDIRECT_OPTION,_0x3cb134(0xfb));}async function startSingBox(){const _0x7b44dc=_0x385e0d;await ensureInstalled(BIN['singbox'],installSingBox,_0x7b44dc(0x13b),VERSIONS[_0x7b44dc(0x123)]),generateSingBoxConfig(),await isProcessRunning(BIN[_0x7b44dc(0x96)])&&await killProcess(BIN['singbox']),spawnDetached(BIN[_0x7b44dc(0x96)]+_0x7b44dc(0x12b)+CONFIG_FILE+'\x20'+LOG_REDIRECT_OPTION,_0x7b44dc(0x13b));}for(const {suffix,port}of WS_PROXIES){const prefix='/'+ENV[_0x385e0d(0x127)]+'-'+suffix;fastify[_0x385e0d(0xdd)](proxy,{'upstream':_0x385e0d(0x99)+port,'prefix':prefix,'rewritePrefix':prefix,'websocket':!![]});}const SUB_TTL=0x5*0x3c*0x3e8;let subCache={'content':null,'ts':0x0};const PREFER_DOMAINS=[_0x385e0d(0x97),'www.visa.cn','www.mastercard.com.hk',_0x385e0d(0x70),_0x385e0d(0xee),_0x385e0d(0xcf),'speed.cloudflare.com',_0x385e0d(0x71),'www.shopify.com',_0x385e0d(0xbc),'www.digitalocean.com',_0x385e0d(0x84),_0x385e0d(0xfc),_0x385e0d(0x138),_0x385e0d(0x94),_0x385e0d(0x11a),'dash.cloudflare.com','workers.dev',_0x385e0d(0xab),_0x385e0d(0xa9),_0x385e0d(0x85),'www.un.org','www.csgo.com',_0x385e0d(0xa7),_0x385e0d(0xaa)];fastify['get'](_0x385e0d(0x10f),async(_0x28353c,_0x5c8b8c)=>{const _0x5e855a=_0x385e0d;if(_0x28353c['query'][_0x5e855a(0xb6)]!==ENV['AUTH_TOKEN'])return _0x5c8b8c[_0x5e855a(0xd2)](0x193)[_0x5e855a(0xe0)]({'error':_0x5e855a(0xad)});const _0x30faa0=0x5*0x3c*0x3e8;if(subCache[_0x5e855a(0x131)]&&Date['now']()-subCache['ts']<_0x30faa0)return _0x5c8b8c['type']('text/plain;\x20charset=utf-8')[_0x5e855a(0xe0)](subCache['content']);const _0x3838da=ENV[_0x5e855a(0xf7)]?ENV[_0x5e855a(0xf7)][_0x5e855a(0x114)](',')[0x0]:_0x28353c[_0x5e855a(0xa2)],{UUID:_0x4f69e6,WS_PATH:_0x2cc9e1}=ENV,_0x3a6218=[],_0x2584bf=new URLSearchParams({'encryption':_0x5e855a(0x83),'security':_0x5e855a(0x112),'sni':ENV[_0x5e855a(0x86)]||_0x5e855a(0x124),'fp':_0x5e855a(0xae),'pbk':ENV[_0x5e855a(0x118)],'sid':_0x5e855a(0xa6),'type':_0x5e855a(0xb0),'flow':_0x5e855a(0x9d)})[_0x5e855a(0xc9)](),_0x1b3300=PREFER_DOMAINS[_0x5e855a(0xe8)](()=>Math[_0x5e855a(0x136)]()-0.5)[_0x5e855a(0x130)](0x0,0x6),_0x428926=[_0x3838da,..._0x1b3300];_0x428926['forEach'](_0x4e4098=>{const _0x1bc882=_0x5e855a,_0x528da7=_0x4e4098===_0x3838da,_0x58b31c=_0x528da7?'直连':'优选',_0x1d8313=_0x3d7ecd=>new URLSearchParams({'encryption':_0x1bc882(0x83),'security':'tls','sni':_0x3838da,'type':'ws','host':_0x3838da,'path':'/'+_0x2cc9e1+'-'+_0x3d7ecd})[_0x1bc882(0xc9)](),_0x3938c6=_0x155d48=>new URLSearchParams({'security':_0x1bc882(0x132),'sni':_0x3838da,'type':'ws','host':_0x3838da,'path':'/'+_0x2cc9e1+'-'+_0x155d48})['toString'](),_0x170b51=(_0x4d14ac,_0x4872f3=![])=>{const _0x382243=_0x1bc882,_0x3a50fa={'v':'2','ps':_0x4e4098+_0x382243(0x95)+(_0x4872f3?_0x382243(0xff):'')+'-'+_0x58b31c,'add':_0x4e4098,'port':_0x382243(0xfd),'id':_0x4f69e6,'aid':'0','scy':'auto','net':'ws','type':_0x382243(0x83),'host':_0x3838da,'path':'/'+_0x2cc9e1+'-'+_0x4d14ac,'tls':_0x382243(0x132),'sni':_0x3838da};return'vmess://'+Buffer[_0x382243(0xa1)](JSON['stringify'](_0x3a50fa))[_0x382243(0xc9)]('base64');};_0x3a6218[_0x1bc882(0xe1)](_0x1bc882(0xb9)+_0x4f69e6+'@'+_0x4e4098+_0x1bc882(0x9a)+_0x1d8313('vl')+'#'+_0x4e4098+'-VLESS-'+_0x58b31c),_0x3a6218[_0x1bc882(0xe1)](_0x1bc882(0xb9)+_0x4f69e6+'@'+_0x4e4098+_0x1bc882(0x9a)+_0x1d8313('wgvl')+'#'+_0x4e4098+_0x1bc882(0xb8)+_0x58b31c),_0x3a6218['push'](_0x1bc882(0xf1)+_0x4f69e6+'@'+_0x4e4098+':443?'+_0x3938c6('tr')+'#'+_0x4e4098+_0x1bc882(0xd9)+_0x58b31c),_0x3a6218[_0x1bc882(0xe1)](_0x1bc882(0xf1)+_0x4f69e6+'@'+_0x4e4098+_0x1bc882(0x9a)+_0x3938c6(_0x1bc882(0x103))+'#'+_0x4e4098+_0x1bc882(0xc2)+_0x58b31c),_0x3a6218['push'](_0x170b51('vm',![])),_0x3a6218['push'](_0x170b51(_0x1bc882(0x122),!![]));});const _0x2c1357=_0x3a6218[_0x5e855a(0xe8)](()=>Math[_0x5e855a(0x136)]()-0.5)[_0x5e855a(0xeb)]('\x0a');return subCache={'content':Buffer[_0x5e855a(0xa1)](_0x2c1357)[_0x5e855a(0xc9)](_0x5e855a(0xc3)),'ts':Date['now']()},_0x5c8b8c['type']('text/plain;\x20charset=utf-8')[_0x5e855a(0xe0)](subCache[_0x5e855a(0x131)]);});async function cleanupArtifacts(){const _0x489fa9=_0x385e0d;log(_0x489fa9(0x80)),await Promise[_0x489fa9(0xb4)]([fsExtra['remove'](BIN_DIR),fsExtra['remove'](CONFIG_FILE)]),log('Cleanup\x20done.');}async function shutdown(_0x70ef6e){const _0x228dae=_0x385e0d;log('Received\x20'+_0x70ef6e+_0x228dae(0x12e)),await Promise['all']([killProcess(BIN[_0x228dae(0x96)]),killProcess(BIN['cloudflared']),killProcess(BIN[_0x228dae(0x11e)])]),process[_0x228dae(0x126)](0x0);}process['on']('SIGINT',()=>shutdown(_0x385e0d(0xc8))),process['on'](_0x385e0d(0xe5),()=>shutdown(_0x385e0d(0xe5)));function _0x5640(){const _0x10f147=['geosite-openai','parse','includes','amd64','time.is','https','GET','code','\x20-p\x20','prefer_ipv4','0.0.0.0','wireguard','\x20--disable-auto-update\x20--report-delay=3\x20--skip-conn\x20--skip-procs\x20-d\x20','debug','-Trojan-','3945456rzUXDE','https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tor.srs','local','register','9320OcIQMY','@fastify/http-proxy','send','push','/dns-query','dirname','trim','SIGTERM','data','/tcp\x202>/dev/null;\x20true','sort','bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=','.zip','join','https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/disney.srs','catch','ip.sb','get','sing-box-','trojan://','0.0.0.0/0','\x20-s\x20','move','UUID','nezha.lalifeier.eu.org','DOMAIN','pathExists','2083','ignore','cloudflared','www.skyscanner.jp','443','[ERROR]','-WARP','PORT','NEZHA_KEY','listen','wgtr','[78,\x20135,\x2076]','Moved\x20libcronet.so\x20to\x20bin\x20directory','2096','remove','wg-ep','-in','fastify','::/0','mysql','xray2026','v0.20.23','/sub','278yEXYOb','\x20--disable-auto-update\x20--report-delay=3\x20--skip-conn\x20--skip-procs\x20-d','reality','dns-domestic','split','config.json','WG_IP6_ADDR','4226706XyDhWK','REALITY_PUBLIC','10589aisBXi','www.hktv.com.hk','remote','4590ngUaQi','child_process','nezha','chmod','[INFO]','WG_PEER_PUB_KEY','wgvm','SING_BOX','addons.mozilla.org','suffix','exit','WS_PATH','wgvl','REALITY_PRIVATE','port','\x20run\x20-c\x20','WG_PRIVATE_KEY','fs/promises',',\x20shutting\x20down...','geosite-disney','slice','content','tls','all','lalifeier','geosite-netflix','random','Fatal:','singapore.com','Config\x20generated','binary','sing-box','direct','geosite-tor','www.paypal.com','www.udemy.com','engage.cloudflareclient.com','GL_HdaX-VQVBStvCjmXqcAT-jaO4TH74_fzqEmK-CWU','vl-wg-in','error','fuser\x20-k\x20','pgrep\x20-x\x20\x22','tor','uncompress','WG_ENDPOINT','-wg-in','[FATAL]\x20Missing\x20required\x20env\x20vars','vless','nezha-agent','NEZHA_AGENT','Cleaning\x20up\x20bin\x20files\x20and\x20config...','Installed\x20','existsSync','none','icook.tw','www.who.int','TLS_SERVER','stream','882330BrTewX','zip','world','dns-direct','.tar.gz','2087','NEZHA_SERVER','2053','ensureDir','finish','inherit','ENABLE_LOG','japan.com','-VMESS','singbox','www.visa.com.hk','pkill\x20-x\x20\x22','http://127.0.0.1:',':443?','NEZHA_PORT','CF_TOKEN','xtls-rprx-vision','1.1.1.1','path','1593599IuAwMi','from','hostname','dns-remote','axios','vm-wg-in','a1b2c3d4','update.microsoft.com','block','cdnjs.cloudflare.com','gateway.icloud.com','pages.dev','tr-wg-in','Forbidden','chrome','https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs','tcp','2606:4700:110:8a36:df92:102a:9602:fa18','redis','createWriteStream','allSettled','2858568eopPNm','token','map','-VLESS-WARP-','vless://','nginx','\x20started\x20(PID:\x20','www.vimeo.com','basename','libcronet.so','mkdir','fs-extra','8443','-Trojan-WARP-','base64','1.13.2','toISOString','172.16.0.2/32','tgz','SIGINT','toString','https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/netflix.srs'];_0x5640=function(){return _0x10f147;};return _0x5640();}async function main(){const _0x203725=_0x385e0d;try{await Promise[_0x203725(0x133)]([startNezha(),startCloudflared()]),await startSingBox(),fastify[_0x203725(0xef)]('/',async(_0x5ba179,_0x1b02b1)=>{const _0x2bb2ae=_0x203725;return{'hello':_0x2bb2ae(0x8a)};}),await new Promise(_0xef09f5=>exec(_0x203725(0x76)+ENV[_0x203725(0x100)]+_0x203725(0xe7),()=>_0xef09f5())),await fastify[_0x203725(0x102)]({'port':ENV[_0x203725(0x100)],'host':_0x203725(0xd5)}),log('Listening\x20on\x20:'+ENV[_0x203725(0x100)]);}catch(_0x9aeb9c){err('Startup\x20failed:',_0x9aeb9c['message']),process[_0x203725(0x126)](0x1);}}main()[_0x385e0d(0xed)](_0x17a984=>{const _0xea95c3=_0x385e0d;err(_0xea95c3(0x137),_0x17a984),process[_0xea95c3(0x126)](0x1);});
+const { spawn, exec } = require('child_process');
+const fs = require('fs');
+const fsp = require('fs/promises');
+const path = require('path');
+const axios = require('axios');
+const compressing = require('compressing');
+const fsExtra = require('fs-extra');
+const fastify = require('fastify')({ logger: !!process.env.ENABLE_LOG });
+const proxy = require('@fastify/http-proxy');
+const crypto = require('crypto');
+
+// ────────────────────────────────────────────────
+// 固定版本
+const VERSIONS = {
+  SING_BOX: '1.13.2',
+  NEZHA_AGENT: 'v0.20.23',
+  CLOUDFLARED: '2026.2.0',
+  MIHOMO: 'v1.19.32',
+};
+
+// ────────────────────────────────────────────────
+// 环境变量
+const ENV = {
+  // UUID:            process.env.UUID || crypto.randomUUID(),
+  UUID: process.env.UUID || "ffffffff-ffff-ffff-ffff-ffffffffffff",
+  PORT: Number(process.env.PORT) || 3000,
+  WS_PATH: process.env.WS_PATH || 'xray2026',
+  AUTH_TOKEN: process.env.AUTH_TOKEN || 'lalifeier',
+
+  NEZHA_SERVER: process.env.NEZHA_SERVER || 'nezha.lalifeier.eu.org',
+  NEZHA_PORT: process.env.NEZHA_PORT || '443',
+  NEZHA_KEY: process.env.NEZHA_KEY || 'cEjHDQYuIgoy6K60U6',
+
+  CF_TOKEN: process.env.CLOUDFLARE_TOKEN || 'eyJhIjoiMjMxZDY0YTVkYWQ2ODIwMWRjNGIwY2IyNjJlMWUxOTkiLCJ0IjoiMjc5ZTEwZWUtYzZiOS00NWM1LThmYjUtZmU2YzU3ZmE0NWM5IiwicyI6IlpUQXpOelZpWWpJdE56SmlZUzAwTjJWbExXRXlPV0l0T0RNMlptTXlZVEUxTnpjeSJ9',
+
+  DOMAIN: process.env.DOMAIN,
+  TLS_SERVER: process.env.TLS_SERVER || 'addons.mozilla.org',
+  REALITY_PRIVATE: process.env.REALITY_PRIVATE || 'GL_HdaX-VQVBStvCjmXqcAT-jaO4TH74_fzqEmK-CWU',
+  REALITY_PUBLIC: process.env.REALITY_PUBLIC || 'NvbPo4WyN3p4MIQgaz9N6CHzdWEtzem8hcUOqCxfQiU',
+
+  VPNGATE_SUB: process.env.VPNGATE_SUB || 'https://cf-cdn-vpngate.lalifeier.eu.org/sub?token=lalifeier',
+  VPNGATE_REGIONS: (process.env.VPNGATE_REGIONS || 'JP,KR,US,TH,RU')
+    .split(',').map(s => s.trim().toUpperCase()).filter(Boolean),
+
+  WG_ENDPOINT: process.env.WG_ENDPOINT || 'engage.cloudflareclient.com',
+  WG_PRIVATE_KEY: process.env.WG_PRIVATE_KEY || 'YFYOAdbw1bKTHlNNi+aEjBM3BO7unuFC5rOkMRAz9XY=',
+  WG_PEER_PUB_KEY: process.env.WG_PEER_PUBLIC_KEY || 'bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=',
+  WG_IP6_ADDR: process.env.WG_IP6_ADDR || '2606:4700:110:8a36:df92:102a:9602:fa18',
+  WG_RESERVED: process.env.WG_RESERVED || '[78, 135, 76]',
+
+  ENABLE_LOG: process.env.ENABLE_LOG,
+};
+
+const LOG_REDIRECT_OPTION = ENV.ENABLE_LOG ? '' : '>/dev/null 2>&1 &';
+
+
+// 检查关键变量
+if (!ENV.UUID || !ENV.REALITY_PRIVATE || !ENV.WG_PRIVATE_KEY || !ENV.WG_PEER_PUB_KEY) {
+  console.error('[FATAL] Missing required env vars');
+  process.exit(1);
+}
+
+// ────────────────────────────────────────────────
+// 路径 & 常量
+const BIN_DIR = path.join(__dirname, 'bin');
+const CONFIG_FILE = path.join(__dirname, 'config.json');
+const ARCH = process.arch === 'x64' ? 'amd64' : 'arm64';
+
+const NEZHA_TLS_PORTS = new Set(['443', '8443', '2096', '2087', '2083', '2053']);
+
+const BIN = {
+  nezha: path.join(BIN_DIR, 'mysql'),
+  cloudflared: path.join(BIN_DIR, 'nginx'),
+  singbox: path.join(BIN_DIR, 'redis'),
+  mihomo: path.join(BIN_DIR, 'mongod'),
+};
+
+const MIHOMO_CONFIG_FILE = path.join(BIN_DIR, 'mihomo.yaml');
+const VPNGATE_PROVIDER_CACHE = path.join(BIN_DIR, 'vpngate-provider.yaml');
+const MIHOMO_SOCKS_PORT = 7891;
+const VPNGATE_REFRESH_SEC = 1800;
+const HEALTH_CHECK_URL = 'https://www.gstatic.com/generate_204';
+
+// 每个地区一个 socks 出站，端口在 MIHOMO_SOCKS_PORT 之后顺延
+const regionSocksPort = i => MIHOMO_SOCKS_PORT + 1 + i;
+// 每个地区三个协议入站，端口从 3020 起每地区 3 个
+const regionInboundTags = r => {
+  const p = r.toLowerCase();
+  return [`vp${p}vl-in`, `vp${p}vm-in`, `vp${p}tr-in`];
+};
+
+const WS_PROXIES = [
+  { suffix: 'vl', port: 3011 },
+  { suffix: 'vm', port: 3012 },
+  { suffix: 'tr', port: 3013 },
+  { suffix: 'wgvm', port: 3014 },
+  { suffix: 'wgtr', port: 3015 },
+  { suffix: 'wgvl', port: 3016 },
+  { suffix: 'vpvl', port: 3017 },
+  { suffix: 'vpvm', port: 3018 },
+  { suffix: 'vptr', port: 3019 },
+  ...ENV.VPNGATE_REGIONS.flatMap((r, i) => {
+    const p = r.toLowerCase();
+    return [
+      { suffix: `vp${p}vl`, port: 3020 + i * 3 },
+      { suffix: `vp${p}vm`, port: 3021 + i * 3 },
+      { suffix: `vp${p}tr`, port: 3022 + i * 3 },
+    ];
+  }),
+];
+
+// ────────────────────────────────────────────────
+// 日志
+const log = (...args) => ENV.ENABLE_LOG && console.log('[INFO]', new Date().toISOString(), ...args);
+const err = (...args) => console.error('[ERROR]', new Date().toISOString(), ...args);
+
+// ────────────────────────────────────────────────
+// 工具函数
+async function downloadFile(url, dest) {
+  const response = await axios({ method: 'GET', url, responseType: 'stream', timeout: 60000 });
+  await fsp.mkdir(path.dirname(dest), { recursive: true });
+  const writer = fs.createWriteStream(dest);
+  response.data.pipe(writer);
+  return new Promise((resolve, reject) => {
+    writer.on('finish', resolve);
+    writer.on('error', reject);
+  });
+}
+
+async function isProcessRunning(binPath) {
+  return new Promise(r => exec(`pgrep -x "${path.basename(binPath)}"`, (_, s) => r(!!s.trim())));
+}
+
+async function killProcess(binPath) {
+  return new Promise(r => exec(`pkill -x "${path.basename(binPath)}"`, () => r()));
+}
+
+function spawnDetached(cmd, name) {
+  const cp = spawn(cmd, { shell: true, detached: true, stdio: ENV.ENABLE_LOG ? 'inherit' : 'ignore' });
+  cp.unref();
+  log(`${name} started (PID: ${cp.pid})`);
+  return cp;
+}
+
+// ────────────────────────────────────────────────
+// 安装器
+async function ensureInstalled(binPath, installer, name, version) {
+  if (fs.existsSync(binPath)) return binPath;
+  await fsExtra.ensureDir(BIN_DIR);
+  await installer(binPath, version);
+  await fsp.chmod(binPath, '755');
+  log(`Installed ${name} ${version}`);
+  return binPath;
+}
+
+async function installSingBox(binPath, version) {
+  const dirName = `sing-box-${version}-linux-${ARCH}`;
+  const tarName = `${dirName}.tar.gz`;
+  const tarPath = path.join(BIN_DIR, tarName);
+  const url = `https://github.com/SagerNet/sing-box/releases/download/v${version}/${tarName}`;
+
+  await downloadFile(url, tarPath);
+  await compressing.tgz.uncompress(tarPath, BIN_DIR);
+
+  await fsExtra.move(path.join(BIN_DIR, dirName, 'sing-box'), binPath, { overwrite: true });
+
+  const cronetSrc = path.join(BIN_DIR, dirName, 'libcronet.so');
+  const cronetDest = path.join(BIN_DIR, 'libcronet.so');
+  if (await fsExtra.pathExists(cronetSrc)) {
+    await fsExtra.move(cronetSrc, cronetDest, { overwrite: true });
+    log('Moved libcronet.so to bin directory');
+  } else {
+    log('[WARN] libcronet.so not found in release archive');
+  }
+
+  await fsExtra.remove(tarPath);
+  await fsExtra.remove(path.join(BIN_DIR, dirName));
+}
+
+async function installNezha(binPath, version) {
+  const url = `https://github.com/railzen/nezha-zero/releases/download/${version}/nezha-agent_linux_${ARCH}.zip`;
+  const zipPath = `${binPath}.zip`;
+
+  await downloadFile(url, zipPath);
+  await compressing.zip.uncompress(zipPath, BIN_DIR);
+  await fsExtra.move(path.join(BIN_DIR, 'nezha-agent'), binPath, { overwrite: true });
+  await fsp.unlink(zipPath);
+}
+
+async function installCloudflared(binPath, version) {
+  const url = `https://github.com/cloudflare/cloudflared/releases/download/${version}/cloudflared-linux-${ARCH}`;
+  await downloadFile(url, binPath);
+}
+
+async function installMihomo(binPath, version) {
+  const url = `https://github.com/MetaCubeX/mihomo/releases/download/${version}/mihomo-linux-${ARCH}-${version}.gz`;
+  const gzPath = `${binPath}.gz`;
+
+  await downloadFile(url, gzPath);
+  await compressing.gzip.uncompress(gzPath, binPath);
+  await fsExtra.remove(gzPath);
+}
+
+// ────────────────────────────────────────────────
+// 生成 mihomo 配置（VPNGate OpenVPN 出站引擎）
+function generateMihomoConfig() {
+  const autoGroup = name => ({
+    name,
+    type: 'url-test',
+    use: ['vpngate'],
+    url: HEALTH_CHECK_URL,
+    interval: 300,
+    tolerance: 50,
+    lazy: true,
+  });
+
+  const config = {
+    'log-level': 'warning',
+    mode: 'rule',
+    'proxy-providers': {
+      vpngate: {
+        type: 'http',
+        url: vpngateSubUrl(),
+        path: VPNGATE_PROVIDER_CACHE,
+        interval: VPNGATE_REFRESH_SEC,
+        'health-check': { enable: false },
+      },
+    },
+    'proxy-groups': [
+      autoGroup('VPNAUTO'),
+      ...ENV.VPNGATE_REGIONS.map(r => ({ ...autoGroup(`VPNAUTO-${r}`), filter: `^${r}-` })),
+    ],
+    listeners: [
+      {
+        name: 'vpngate-socks',
+        type: 'socks',
+        listen: '127.0.0.1',
+        port: MIHOMO_SOCKS_PORT,
+        proxy: 'VPNAUTO',
+        udp: true,
+      },
+      ...ENV.VPNGATE_REGIONS.map((r, i) => ({
+        name: `vpngate-socks-${r.toLowerCase()}`,
+        type: 'socks',
+        listen: '127.0.0.1',
+        port: regionSocksPort(i),
+        proxy: `VPNAUTO-${r}`,
+        udp: true,
+      })),
+    ],
+  };
+
+  fsExtra.writeJsonSync(MIHOMO_CONFIG_FILE, config, { spaces: 2 });
+  log('Mihomo config generated');
+}
+
+// ────────────────────────────────────────────────
+// 生成 sing-box 配置
+function generateSingBoxConfig() {
+  const mux = { enabled: true, padding: true, brutal: { enabled: false, up_mbps: 1000, down_mbps: 1000 } };
+  const ws = suffix => ({ type: 'ws', path: `/${ENV.WS_PATH}-${suffix}`, max_early_data: 2560, early_data_header_name: 'Sec-WebSocket-Protocol' });
+
+  const config = {
+    log: { disabled: false, level: "debug", timestamp: true },
+    experimental: { cache_file: { enabled: false, store_fakeip: false } },
+    dns: {
+      servers: [
+        { tag: "dns-direct", type: "local" },
+        { tag: "dns-domestic", type: "https", server: "doh.pub", server_port: 443, path: "/dns-query", "domain_resolver": "dns-direct" },
+        { tag: "dns-remote", type: "https", server: "1.1.1.1", server_port: 443, path: "/dns-query", "domain_resolver": "dns-direct" },
+      ],
+      rules: [{
+        inbound: ["vm-wg-in", "tr-wg-in", "vl-wg-in", "vpvl-in", "vpvm-in", "vptr-in",
+          ...ENV.VPNGATE_REGIONS.flatMap(regionInboundTags)],
+        server: "dns-remote"
+      }],
+      strategy: "prefer_ipv4",
+      final: "dns-domestic"
+    },
+    inbounds: [
+      {
+        type: "vless",
+        tag: "xtls-reality-in",
+        listen: "::",
+        listen_port: 8443,
+        users: [{ uuid: ENV.UUID, flow: "xtls-rprx-vision" }],
+        tls: {
+          enabled: true,
+          server_name: ENV.TLS_SERVER,
+          reality: {
+            enabled: true,
+            handshake: { server: ENV.TLS_SERVER, server_port: 443 },
+            private_key: ENV.REALITY_PRIVATE,
+            short_id: ["a1b2c3d4"]
+          }
+        },
+        sniff: true,
+        sniff_override_destination: true,
+        multiplex: mux
+      },
+      ...WS_PROXIES.map(p => ({
+        type: p.suffix.includes('vl') ? 'vless' : p.suffix.includes('vm') ? 'vmess' : 'trojan',
+        tag: p.suffix.includes('wg')
+          ? `${p.suffix.replace('wg', '')}-wg-in`
+          : `${p.suffix}-in`,
+        listen: "::",
+        listen_port: p.port,
+        "tcp_fast_open": false,
+        "proxy_protocol": false,
+        users: p.suffix.includes('tr') ? [{ password: ENV.UUID }] : [{ uuid: ENV.UUID, ...(p.suffix.includes('vm') ? { alterId: 0 } : { flow: "" }) }],
+        transport: ws(p.suffix),
+        sniff: true,
+        sniff_override_destination: true,
+        multiplex: mux,
+      }))
+    ],
+    outbounds: [
+      { type: "direct", tag: "direct", domain_resolver: { server: "dns-direct", strategy: 'prefer_ipv4' } },
+      { "type": "block", "tag": "block" },
+      { type: "socks", tag: "tor", server: "127.0.0.1", server_port: 9050, domain_resolver: { server: "dns-direct", strategy: 'prefer_ipv4' } },
+      { type: "socks", tag: "vpngate", server: "127.0.0.1", server_port: MIHOMO_SOCKS_PORT },
+      ...ENV.VPNGATE_REGIONS.map((r, i) => ({
+        type: "socks", tag: `vpngate-${r.toLowerCase()}`, server: "127.0.0.1", server_port: regionSocksPort(i)
+      }))
+    ],
+    endpoints: [{
+      type: "wireguard",
+      tag: "wg-ep",
+      system: false,
+      name: "wg0",
+      address: ["172.16.0.2/32", `${ENV.WG_IP6_ADDR}/128`],
+      private_key: ENV.WG_PRIVATE_KEY,
+      listen_port: 10000,
+      peers: [{
+        address: ENV.WG_ENDPOINT,
+        port: 2408,
+        public_key: ENV.WG_PEER_PUB_KEY,
+        reserved: JSON.parse(ENV.WG_RESERVED),
+        allowed_ips: ["0.0.0.0/0", "::/0"],
+        persistent_keepalive_interval: 30
+      }],
+      mtu: 1280
+    }],
+    route: {
+      final: "direct",
+      default_domain_resolver: "dns-direct",
+      rules: [
+        { inbound: ["vm-wg-in", "tr-wg-in", "vl-wg-in"], outbound: "wg-ep" },
+        { inbound: ["vpvl-in", "vpvm-in", "vptr-in"], outbound: "vpngate" },
+        ...ENV.VPNGATE_REGIONS.map(r => ({
+          inbound: regionInboundTags(r), outbound: `vpngate-${r.toLowerCase()}`
+        })),
+        { rule_set: "geosite-tor", outbound: "tor" },
+        { rule_set: ["geosite-openai", "geosite-netflix"], outbound: "wg-ep" },
+        { rule_set: "geosite-disney", outbound: "wg-ep" }
+      ],
+      rule_set: [
+        { tag: "geosite-openai", type: "remote", format: "binary", url: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs", download_detour: "direct" },
+        { tag: "geosite-netflix", type: "remote", format: "binary", url: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/netflix.srs", download_detour: "direct" },
+        { tag: "geosite-disney", type: "remote", format: "binary", url: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/disney.srs", download_detour: "direct" },
+        { tag: "geosite-tor", type: "remote", format: "binary", url: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/tor.srs", download_detour: "direct" }
+      ]
+    }
+  };
+
+  fsExtra.writeJsonSync(CONFIG_FILE, config, { spaces: 2 });
+  log('Config generated');
+}
+
+// ────────────────────────────────────────────────
+// VPNGate 订阅地址（带上要暴露的地区）
+function vpngateSubUrl() {
+  const url = new URL(ENV.VPNGATE_SUB);
+  if (ENV.VPNGATE_REGIONS.length) {
+    url.searchParams.set('country', ENV.VPNGATE_REGIONS.join(','));
+  }
+  return url.toString();
+}
+
+// ────────────────────────────────────────────────
+// 服务启动
+async function startNezha() {
+  if (!ENV.NEZHA_SERVER || !ENV.NEZHA_KEY) return;
+  await ensureInstalled(BIN.nezha, installNezha, 'nezha-agent', VERSIONS.NEZHA_AGENT);
+  if (await isProcessRunning(BIN.nezha)) {
+    await killProcess(BIN.nezha);
+  }
+
+  // const configPath = path.join(BIN_DIR, 'nezha-config.yml');
+  // const tls = NEZHA_TLS_PORTS.has(ENV.NEZHA_PORT);
+  // const yml = [
+  //   `server: ${ENV.NEZHA_SERVER}:${ENV.NEZHA_PORT}`,
+  //   `client_secret: ${ENV.NEZHA_KEY}`,
+  //   `tls: ${tls}`,
+  //   `disable_auto_update: true`,
+  //   `report_delay: 3`,
+  //   `skip_connection_count: true`,
+  //   `skip_procs_count: true`,
+  //   `debug: false`,
+  //   `disable_command_execute: false`,
+  //   `disable_force_update: false`,
+  //   `disable_nat: false`,
+  //   `disable_send_query: false`,
+  //   `gpu: false`,
+  //   `insecure_tls: false`,
+  //   `ip_report_period: 1800`,
+  //   `temperature: false`,
+  //   `use_gitee_to_upgrade: false`,
+  //   `use_ipv6_country_code: false`,
+  // ].join('\n');
+
+  // await fsp.writeFile(configPath, yml);
+  // spawnDetached(`${BIN.nezha} -c ${configPath}`, 'nezha');
+
+  let NEZHA_TLS = "";
+  if (["443", "8443", "2096", "2087", "2083", "2053"].includes(ENV.NEZHA_PORT)) {
+    NEZHA_TLS = "--tls";
+  }
+
+  log((`${BIN.nezha} -s ${ENV.NEZHA_SERVER}:${ENV.NEZHA_PORT} -p ${ENV.NEZHA_KEY} ${NEZHA_TLS} --disable-auto-update --report-delay=3 --skip-conn --skip-procs -d`))
+
+  spawnDetached(`${BIN.nezha} -s ${ENV.NEZHA_SERVER}:${ENV.NEZHA_PORT} -p ${ENV.NEZHA_KEY} ${NEZHA_TLS} --disable-auto-update --report-delay=3 --skip-conn --skip-procs -d ${LOG_REDIRECT_OPTION}`, 'nezha')
+}
+
+async function startCloudflared() {
+  if (!ENV.CF_TOKEN) return;
+  await ensureInstalled(BIN.cloudflared, installCloudflared, 'cloudflared', VERSIONS.CLOUDFLARED);
+  if (await isProcessRunning(BIN.cloudflared)) {
+    await killProcess(BIN.cloudflared);
+  }
+
+  spawnDetached(`${BIN.cloudflared} tunnel --edge-ip-version auto --protocol http2 run --token ${ENV.CF_TOKEN} ${LOG_REDIRECT_OPTION}`, 'cloudflared');
+}
+
+async function startMihomo() {
+  if (!ENV.VPNGATE_SUB) return;
+  await ensureInstalled(BIN.mihomo, installMihomo, 'mihomo', VERSIONS.MIHOMO);
+  generateMihomoConfig();
+  if (await isProcessRunning(BIN.mihomo)) {
+    await killProcess(BIN.mihomo);
+  }
+
+  spawnDetached(`${BIN.mihomo} -d ${BIN_DIR} -f ${MIHOMO_CONFIG_FILE} ${LOG_REDIRECT_OPTION}`, 'mihomo');
+}
+
+async function startSingBox() {
+  await ensureInstalled(BIN.singbox, installSingBox, 'sing-box', VERSIONS.SING_BOX);
+  generateSingBoxConfig();
+  if (await isProcessRunning(BIN.singbox)) {
+    await killProcess(BIN.singbox);
+  }
+
+  spawnDetached(`${BIN.singbox} run -c ${CONFIG_FILE} ${LOG_REDIRECT_OPTION}`, 'sing-box');
+}
+
+// ────────────────────────────────────────────────
+// Fastify WS 代理
+for (const { suffix, port } of WS_PROXIES) {
+  const prefix = `/${ENV.WS_PATH}-${suffix}`;
+  fastify.register(proxy, {
+    upstream: `http://127.0.0.1:${port}`,
+    prefix,
+    rewritePrefix: prefix,
+    websocket: true,
+  });
+}
+
+// ────────────────────────────────────────────────
+// 订阅路由
+const SUB_TTL = 5 * 60 * 1000;
+let subCache = { content: null, ts: 0 };
+
+const PREFER_DOMAINS = [
+  "www.visa.com.hk", "www.visa.cn", "www.mastercard.com.hk", "www.paypal.com",
+  "ip.sb", "time.is", "speed.cloudflare.com", "www.udemy.com",
+  "www.shopify.com", "www.vimeo.com", "www.digitalocean.com",
+  "icook.tw", "www.skyscanner.jp", "singapore.com", "japan.com", "www.hktv.com.hk",
+  "dash.cloudflare.com", "workers.dev", "pages.dev", "cdnjs.cloudflare.com",
+  "www.who.int", "www.un.org", "www.csgo.com", "update.microsoft.com", "gateway.icloud.com"
+];
+
+fastify.get('/sub', async (req, reply) => {
+  if (req.query.token !== ENV.AUTH_TOKEN) {
+    return reply.code(403).send({ error: 'Forbidden' });
+  }
+
+  const SUB_TTL = 5 * 60 * 1000;
+  if (subCache.content && Date.now() - subCache.ts < SUB_TTL) {
+    return reply.type('text/plain; charset=utf-8').send(subCache.content);
+  }
+
+  const host = (ENV.DOMAIN ? ENV.DOMAIN.split(',')[0] : req.hostname);
+  const { UUID, WS_PATH } = ENV;
+  const nodes = [];
+
+  const realityQs = new URLSearchParams({
+    encryption: 'none',
+    security: 'reality',
+    sni: ENV.TLS_SERVER || 'addons.mozilla.org',
+    fp: 'chrome',
+    pbk: ENV.REALITY_PUBLIC,
+    sid: 'a1b2c3d4',
+    type: 'tcp',
+    flow: 'xtls-rprx-vision'
+  }).toString();
+  // nodes.push(`vless://${UUID}@${host}:8443?${realityQs}#${host}-REALITY-直连`);
+
+  const selectedPrefers = PREFER_DOMAINS
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 6);
+
+  const addressPool = [host, ...selectedPrefers];
+
+  const vlessQs = (suffix) => new URLSearchParams({
+    encryption: 'none',
+    security: 'tls',
+    sni: host,
+    type: 'ws',
+    host: host,
+    path: `/${WS_PATH}-${suffix}`
+  }).toString();
+
+  const trojanQs = (suffix) => new URLSearchParams({
+    security: 'tls',
+    sni: host,
+    type: 'ws',
+    host: host,
+    path: `/${WS_PATH}-${suffix}`
+  }).toString();
+
+  const getVmess = (addr, tag, suffix, extra = '') => {
+    const vmessObj = {
+      v: '2',
+      ps: `${addr}-VMESS${extra}-${tag}`,
+      add: addr,
+      port: '443',
+      id: UUID,
+      aid: '0',
+      scy: 'auto',
+      net: 'ws',
+      type: 'none',
+      host: host,
+      path: `/${WS_PATH}-${suffix}`,
+      tls: 'tls',
+      sni: host
+    };
+    return `vmess://${Buffer.from(JSON.stringify(vmessObj)).toString('base64')}`;
+  };
+
+  addressPool.forEach(addr => {
+    const tag = addr === host ? '直连' : '优选';
+
+    nodes.push(`vless://${UUID}@${addr}:443?${vlessQs('vl')}#${addr}-VLESS-${tag}`);
+    nodes.push(`vless://${UUID}@${addr}:443?${vlessQs('wgvl')}#${addr}-VLESS-WARP-${tag}`);
+    nodes.push(`vless://${UUID}@${addr}:443?${vlessQs('vpvl')}#${addr}-VLESS-VPNGate-${tag}`);
+    nodes.push(`trojan://${UUID}@${addr}:443?${trojanQs('tr')}#${addr}-Trojan-${tag}`);
+    nodes.push(`trojan://${UUID}@${addr}:443?${trojanQs('wgtr')}#${addr}-Trojan-WARP-${tag}`);
+    nodes.push(`trojan://${UUID}@${addr}:443?${trojanQs('vptr')}#${addr}-Trojan-VPNGate-${tag}`);
+    nodes.push(getVmess(addr, tag, 'vm'));
+    nodes.push(getVmess(addr, tag, 'wgvm', '-WARP'));
+    nodes.push(getVmess(addr, tag, 'vpvm', '-VPNGate'));
+  });
+
+  // 地区节点只走直连域名，避免和优选域名相乘导致节点数爆炸
+  for (const region of ENV.VPNGATE_REGIONS) {
+    const p = region.toLowerCase();
+    const tag = `VPNGate-${region}`;
+
+    nodes.push(`vless://${UUID}@${host}:443?${vlessQs(`vp${p}vl`)}#${host}-VLESS-${tag}`);
+    nodes.push(`trojan://${UUID}@${host}:443?${trojanQs(`vp${p}tr`)}#${host}-Trojan-${tag}`);
+    nodes.push(getVmess(host, tag, `vp${p}vm`));
+  }
+
+  const finalContent = nodes.sort(() => Math.random() - 0.5).join('\n');
+
+  subCache = {
+    content: Buffer.from(finalContent).toString('base64'), // 标准 Base64 编码
+    ts: Date.now()
+  };
+
+  return reply.type('text/plain; charset=utf-8').send(subCache.content);
+});
+
+async function cleanupArtifacts() {
+  log('Cleaning up bin files and config...');
+  await Promise.allSettled([
+    fsExtra.remove(BIN_DIR),
+    fsExtra.remove(CONFIG_FILE),
+  ]);
+  log('Cleanup done.');
+}
+
+async function shutdown(signal) {
+  log(`Received ${signal}, shutting down...`);
+  await Promise.all([
+    killProcess(BIN.singbox),
+    killProcess(BIN.cloudflared),
+    killProcess(BIN.nezha),
+    killProcess(BIN.mihomo),
+  ]);
+  process.exit(0);
+}
+
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+
+// ────────────────────────────────────────────────
+// 主函数
+async function main() {
+  try {
+    await Promise.all([startNezha(), startCloudflared(), startMihomo()]);
+    await startSingBox();
+
+    fastify.get("/", async (request, reply) => {
+      return { hello: "world" };
+    });
+
+
+    await new Promise(r => exec(`fuser -k ${ENV.PORT}/tcp 2>/dev/null; true`, () => r()));
+    await fastify.listen({ port: ENV.PORT, host: '0.0.0.0' });
+    log(`Listening on :${ENV.PORT}`);
+
+
+    // await cleanupArtifacts();
+  } catch (e) {
+    err('Startup failed:', e.message);
+    process.exit(1);
+  }
+}
+
+main().catch(e => { err('Fatal:', e); process.exit(1); });
